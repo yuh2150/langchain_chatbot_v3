@@ -36,7 +36,7 @@ class QuotesAPI:
             if response.status_code == 200:
                 return response.json()
             else:
-                return {"status": response.status_code}
+                return {"status": response.status_code,"error": response}
         except requests.RequestException as e:
             return {"error": str(e)}
 # class Quote:
@@ -66,25 +66,11 @@ class QuotesAPI:
 #         return (f"Quote(quote_id={self.quote_id}, expires_at={self.expires_at}, vehicle_type={self.vehicle_type}, "
 #                 f"price_value={self.price_value}, price_currency={self.price_currency}, luggage={self.luggage}, "
 #                 f"passengers={self.passengers}, provider_name={self.provider_name}, provider_phone={self.provider_phone})")
-# if __name__ == "__main__":
-#     api = QuotesAPI(os.getenv("JUPITER_API") + "/demand/v1/quotes")
-#     pickup_datetime = '2025-01-09T09:53:44Z'
-#     pickup_coords = {'latitude': 10.7228245, 'longitude': 106.6606769}
-#     destination_coords = {'latitude': 16.0569804, 'longitude': 108.2025372}
-#     quotes_data = api.get_quotes(pickup_datetime, pickup_coords, destination_coords)
-#     print(quotes_data)
-#     quotes = []
-#     for item in quotes_data:
-        
-#         quote = Quote(
-#         quote_id=item['quoteId'],
-#         expires_at=item['expiresAt'],
-#         vehicle_type=item['vehicleType'],
-#         price_value=item['price']['value'],
-#         price_currency=item['price']['currency'] if 'currency' in item['price'] and item['price']['currency'] is not None else 'CAD',
-#         luggage=item['luggage'],
-#         passengers=item['passengers'],
-#         provider_name=item['provider']['name'],
-#         provider_phone=item['provider']['phone']
-#         )
-#         quotes.append(quote)
+if __name__ == "__main__":
+    api = QuotesAPI(os.getenv("JUPITER_API") + "/demand/v1/quotes")
+    pickup_datetime = '2025-03-10T09:53:44Z'
+    pickup_coords = {'latitude': 10.7228245, 'longitude': 106.6606769}
+    destination_coords = {'latitude': 16.0569804, 'longitude': 108.2025372}
+    quotes_data = api.get_quotes(pickup_datetime, pickup_coords, destination_coords)
+    print(quotes_data)
+    quotes = []
